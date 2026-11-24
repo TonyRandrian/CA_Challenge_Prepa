@@ -1,4 +1,6 @@
-﻿namespace TaskFlow.Domain.Tests
+﻿using TaskFlow.Domain.Entities;
+
+namespace TaskFlow.Domain.Tests
 {
     public class ProjectTests
     {

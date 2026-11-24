@@ -1,4 +1,4 @@
-﻿namespace TaskFlow.Domain
+﻿namespace TaskFlow.Domain.Entities
 {
     public class Project
     {
