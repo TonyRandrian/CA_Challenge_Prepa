@@ -24,5 +24,11 @@ namespace TaskFlow.Infrastructure.Persistence.Repositories
 
             return project;
         }
+
+        public async Task UpdateAsync(Project project, CancellationToken cancellationToken)
+        {
+            _context.Projects.Update(project);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
     }
 }

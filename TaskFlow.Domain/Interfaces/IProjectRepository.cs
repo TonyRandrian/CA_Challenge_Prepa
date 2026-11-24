@@ -6,5 +6,6 @@ namespace TaskFlow.Domain.Interfaces
     {
         Task AddAsync(Project project, CancellationToken cancellationToken);
         Task<Project?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task UpdateAsync(Project project, CancellationToken cancellationToken);
     }
 }

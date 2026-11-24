@@ -1,7 +1,8 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using TaskFlow.API.Contracts.Requests;
 using TaskFlow.Application.Commands.CreateProject;
+using TaskFlow.Application.Commands.RenameProject;
 using TaskFlow.Application.Queries.GetProjectById;
 using TaskFlow.Domain.Entities;
 
@@ -33,6 +34,15 @@ namespace TaskFlow.API.Controllers
                 return NotFound();
 
             return Ok(project);
+        }
+
+        [HttpPatch("{id:guid}")]
+        public async Task<ActionResult> Rename(
+            [FromRoute] Guid id,
+            [FromBody] RenameProjectRequest request)
+        {
+            await _sender.Send(new RenameProjectCommand(id, request.Name));
+            return NoContent();
         }
     }
 }
