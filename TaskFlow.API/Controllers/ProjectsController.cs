@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TaskFlow.API.Contracts.Requests;
+using TaskFlow.Application.Commands.ArchiveProject;
 using TaskFlow.Application.Commands.CreateProject;
 using TaskFlow.Application.Commands.RenameProject;
 using TaskFlow.Application.Queries.GetProjectById;
@@ -42,6 +43,14 @@ namespace TaskFlow.API.Controllers
             [FromBody] RenameProjectRequest request)
         {
             await _sender.Send(new RenameProjectCommand(id, request.Name));
+            return NoContent();
+        }
+
+        [HttpPatch("{id:guid}/archive")]
+        public async Task<ActionResult> Archive(
+            [FromRoute] Guid id)
+        {
+            await _sender.Send(new ArchiveProjectCommand(id));
             return NoContent();
         }
     }
