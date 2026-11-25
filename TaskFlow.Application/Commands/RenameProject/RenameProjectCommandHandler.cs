@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using TaskFlow.Domain.Entities;
+using TaskFlow.Domain.Exceptions;
 using TaskFlow.Domain.Interfaces;
 
 namespace TaskFlow.Application.Commands.RenameProject
@@ -13,7 +14,7 @@ namespace TaskFlow.Application.Commands.RenameProject
         public async Task Handle(RenameProjectCommand request, CancellationToken cancellationToken)
         {
             Project? project = await _projectRepository.GetByIdAsync(request.Id, cancellationToken)
-                ?? throw new InvalidOperationException("This project does not exist");
+                ?? throw new ProjectNotFoundException(request.Id);
 
             project.Rename(request.Name);
             await _projectRepository.UpdateAsync(project, cancellationToken);
